@@ -32,8 +32,11 @@ func Query(network, host, srcPort, dstPort string) (Resp, error) {
 	if err != nil {
 		return Resp{}, err
 	}
+	return QueryWithConn(srcPort, dstPort, conn)
+}
 
-	_, err = fmt.Fprintf(conn, "%s, %s\n", srcPort, dstPort)
+func QueryWithConn(srcPort, dstPort string, conn net.Conn) (Resp, error) {
+	_, err := fmt.Fprintf(conn, "%s, %s\n", srcPort, dstPort)
 	if err != nil {
 		return Resp{}, err
 	}
